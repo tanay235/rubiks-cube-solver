@@ -197,3 +197,78 @@ void RubiksCube::print() const {
     }
     cout << "\n";
 }
+
+vector<RubiksCube::MOVE> RubiksCube::randomShuffleCube(unsigned int times) {
+    vector<MOVE> moves_performed;
+    srand(time(0));
+    for (unsigned int i = 0; i < times; i++) {
+        unsigned int selectMove = (rand() % 18);
+        moves_performed.push_back(static_cast<MOVE>(selectMove));
+        this->move(static_cast<MOVE>(selectMove));
+    }
+    return moves_performed;
+}
+
+//Helper function returns string of corner
+string RubiksCube::getCornerColorString(uint8_t ind) const {
+    string str = "";
+
+    switch (ind) {
+//        UFR
+        case 0:
+            str += getColorLetter(getColor(FACE::UP, 2, 2));
+            str += getColorLetter(getColor(FACE::FRONT, 0, 2));
+            str += getColorLetter(getColor(FACE::RIGHT, 0, 0));
+            break;
+
+//            UFL
+        case 1:
+            str += getColorLetter(getColor(FACE::UP, 2, 0));
+            str += getColorLetter(getColor(FACE::FRONT, 0, 0));
+            str += getColorLetter(getColor(FACE::LEFT, 0, 2));
+            break;
+
+//            UBL
+        case 2:
+            str += getColorLetter(getColor(FACE::UP, 0, 0));
+            str += getColorLetter(getColor(FACE::BACK, 0, 2));
+            str += getColorLetter(getColor(FACE::LEFT, 0, 0));
+            break;
+
+//            UBR
+        case 3:
+            str += getColorLetter(getColor(FACE::UP, 0, 2));
+            str += getColorLetter(getColor(FACE::BACK, 0, 0));
+            str += getColorLetter(getColor(FACE::RIGHT, 0, 2));
+            break;
+
+//            DFR
+        case 4:
+            str += getColorLetter(getColor(FACE::DOWN, 0, 2));
+            str += getColorLetter(getColor(FACE::FRONT, 2, 2));
+            str += getColorLetter(getColor(FACE::RIGHT, 2, 0));
+            break;
+
+//            DFL
+        case 5:
+            str += getColorLetter(getColor(FACE::DOWN, 0, 0));
+            str += getColorLetter(getColor(FACE::FRONT, 2, 0));
+            str += getColorLetter(getColor(FACE::LEFT, 2, 2));
+            break;
+
+//            DBR
+        case 6:
+            str += getColorLetter(getColor(FACE::DOWN, 2, 2));
+            str += getColorLetter(getColor(FACE::BACK, 2, 0));
+            str += getColorLetter(getColor(FACE::RIGHT, 2, 2));
+            break;
+
+//            DBL
+        case 7:
+            str += getColorLetter(getColor(FACE::DOWN, 2, 0));
+            str += getColorLetter(getColor(FACE::BACK, 2, 2));
+            str += getColorLetter(getColor(FACE::LEFT, 2, 0));
+            break;
+    }
+    return str;
+}
